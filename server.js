@@ -1,33 +1,46 @@
-// Server.js - initial starting point for the Node/Express server.
-// Dependencies
-var express = require("express");
 var exphbs = require("express-handlebars");
+var express = require("express");
 var bodyParser = require("body-parser");
+var methodOverride = require("method-override");
 
-//Express App
+var port = process.env.PORT || 3000;
+
 var app = express();
-var PORT = process.env.PORT || 8080;
 
-//Syncing database depenndency of models.
-var db = require("./models");
-
-// Sets up data parsing by express
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-// Static directory
-app.use(express.static("public"));
+// Override with POST having ?_method=DELETE
+app.use(methodOverride("_method"));
+
+// Set Handlebars.
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+// Requiring our models
+var db = require("./models");
 
 // Routes
-require("./routes/html-routes.js")(app);
-require("./routes/author-api-routes.js")(app);
-require("./routes/post-api-routes.js")(app);
+// ================================================================
 
-//Sync sequalize model, then start Express app
-db.sequelize.sync({ force: true }).then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
+
+//require("./views/login.handlebars")(app);
+// console.log("logged in");
+// Import routes and give the server access to them.
+//var routes = require("./controllers/catsController.js");
+var routes = require("./controllers/goods_controller.js");
+app.use("/", routes);
+
+// Syncing our database and logging a message to the user upon success
+// db.sequelize.sync().then(function() {
+//   app.listen(PORT, function() {
+//     console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
+//   });
+// });
+
+app.listen(port, function() {
+  console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", port, port);
 });

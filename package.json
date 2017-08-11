@@ -1,0 +1,30 @@
+{
+  "name": "thegoods",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
+    "material-design-lite": "^1.3.0",
+    "method-override": "^2.3.9",
+    "mysql2": "^1.4.0",
+    "sequelize": "^4.4.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bgorwin/TheGoods.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bgorwin/TheGoods/issues"
+  },
+  "homepage": "https://github.com/bgorwin/TheGoods#readme"
+}
