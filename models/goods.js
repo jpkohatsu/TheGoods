@@ -5,7 +5,7 @@
 
 // Creating Goods model
 module.exports = function(sequelize, DataTypes) {
-  var Items = sequelize.define("Items", {
+  var Item = sequelize.define("Item", {
     itemName: {
       type: DataTypes.STRING,
       allowNull: false
@@ -53,6 +53,6 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
   };
-
+ 
   return Items;
 };
