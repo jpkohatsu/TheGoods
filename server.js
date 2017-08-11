@@ -28,11 +28,18 @@ var db = require("./models");
 
 
 //require("./views/login.handlebars")(app);
-// console.log("logged in");
+console.log("logged in");
+
 // Import routes and give the server access to them.
-//var routes = require("./controllers/catsController.js");
-var routes = require("./controllers/goods_controller.js");
-app.use("/", routes);
+
+var htmlRoutes = require("./controllers/html-routes.js");
+var apiRoutes = require("./controllers/api-routes.js");
+// var routes = require("./public/css/goods_style.css");
+app.use("/", htmlRoutes);
+console.log("we connected our html routes");
+app.use("/api", apiRoutes);
+
+
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(function() {

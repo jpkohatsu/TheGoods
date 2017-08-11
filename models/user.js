@@ -3,6 +3,10 @@
 // sometimes causes errors on Windows machines
 // var bcrypt = require("bcrypt-nodejs");
 
+
+
+
+
 // ***************************************************************************************************
 
 // Creating our User model
@@ -41,9 +45,6 @@ module.exports = function(sequelize, DataTypes) {
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate:{
-        len: [8]
-      }
     },
     //paments stuff needed here
     rating:{
