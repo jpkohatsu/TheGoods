@@ -3,25 +3,26 @@ console.log("we connected the api routes");
 var db = require("../models");
 var passport = require("../config/passport");
 var express = require("express");
-var router = express.Router();
+// var router = express.Router();
+var router = require("./html-routes");
 var path = require("path");
 
 
 // Using the passport.authenticate middleware with our local strategy.
 // If the user has valid login credentials, send them to the members page.
 // Otherwise the user will be sent an error
-router.post("/api/login", passport.authenticate("local"), function(req, res) {
+router.post("/api/login", function(req, res) {
     // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
     // So we're sending the user back the route to the members page because the redirect will happen on the front end
     // They won't get this or even be able to access this page if they aren't authed
-    res.json("/index");
+    res.redirect("/");
 });
 
 // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
 // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
 // otherwise send back an error
 router.post("/api/signup", function(req, res) {
-    console.log(req.body);
+    // console.log("Results: " + req.body);
     db.User.create({
         name: req.body.name,
         email: req.body.email,
@@ -37,7 +38,7 @@ router.post("/api/signup", function(req, res) {
     });
 });
 
-  
+
 
 // Route for getting some data about our user to be used client side
 router.get("/api/user_data", function(req, res) {
@@ -169,4 +170,3 @@ router.get("/api/goods", function(req, res) {
     });
 });
 module.exports = router;
-

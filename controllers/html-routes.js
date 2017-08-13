@@ -25,7 +25,7 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 
   router.get("/checkout", function(req, res) {
     //Insert Sequelize Query Here
-    
+
       res.render("checkout");
   });
 
