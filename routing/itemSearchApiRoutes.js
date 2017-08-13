@@ -17,10 +17,34 @@
   });
 
   // Get item by location
+app.get("/api/goods", function(req,res){
 
+   var query = {};
+    if (req.query.itemLoc) {
+      query.location = req.query.itemLoc;
+    }
+    db.Items.findAll({
+      where: query,
+      include: [db.goods]
+    }).then(function(dbItems) {
+      res.json(dbItems);
+    });
+  });
 
   // Get item by price
+app.get("/api/goods", function(req,res){
 
+   var query = {};
+    if (req.query.item_price) {
+      query.pricePerHour = req.query.item_price;
+    }
+    db.Items.findAll({
+      where: query,
+      include: [db.goods]
+    }).then(function(dbItems) {
+      res.json(dbItems);
+    });
+  });
 
   // Get item by category
   app.get("/api/goods", function(req,res){
