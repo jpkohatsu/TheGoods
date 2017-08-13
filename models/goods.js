@@ -1,6 +1,7 @@
 // Dependencies
 // npm install sequelize-mysql-timestamp
-var sequelize = require("sequelize");
+// var sequelize = require("sequelize");
+
 // const TIMESTAMP = require("sequelize-mysql-timestamp")(sequelize);
 
 
@@ -28,14 +29,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DECIMAL(6,2),
       allowNull: false
     },
-    // outTimeStamp: {
-    //   type: TIMESTAMP,
-    //   allowNull: false
-    // },
-    // inTimeStamp: {
-    //   type: TIMESTAMP,
-    //   allowNull: false
-    // },
+    outTimeStamp: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    inTimeStamp: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
     totalCost: {
       type: DataTypes.DECIMAL(10,2),
     },
@@ -44,7 +45,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     availability: {
-      type: DataTypes.DATE
+      type: DataTypes.BOOLEAN
     }
   });
 

@@ -1,8 +1,83 @@
-#logInForm {
-  text-align: center;
-}
+
 
 body {
-  background-image: url(../assets/images/background.jpg);
+  background-image: url(../assets/images/austinB&W.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: black;
+  height: 0 auto;
+
+}
+
+.container {
+  border: 1px solid white;
+  text-align: center;
+  width: 400px;
+  height: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  padding-bottom: 50px;
+  background: white;
+  opacity: 0.8;
+  border-radius: 20px;
+}
+
+
+
+/***************** Navbar section ****************/
+
+.demo-layout-transparent .mdl-layout__header,
+.demo-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: white;
+}
+
+#categories {
+
+}
+
+#search {
+
+}
+
+#homeButton {
+
+}
+
+#logOutButton {
+
+}
+/*****************End of Navbar section****************/
+
+
+
+/************* The item cards section ***********/
+
+.containerIndex {
+  padding-top: 100px;
+  margin-left: 50px;
+}
+
+.demo-card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+  margin: 10px 10px;
+  float: left;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+  background: #46B6AC;
+}
+/********* End of item cards section ************/
+
+
+/*Footer*/
+
+.mdl-mini-footer {
+  margin-top: 500px;
+  display: center;
 
 }

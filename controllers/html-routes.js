@@ -14,19 +14,35 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
   router.get("/", function(req, res) {
     //Insert Sequelize Query Here
 
-
       res.render("index");
   });
 
   router.get("/login", function(req, res) {
     //Insert Sequelize Query Here
+
       res.render("login");
   });
+
+  router.get("/checkout", function(req, res) {
+    //Insert Sequelize Query Here
+    
+      res.render("checkout");
+  });
+
+  router.get("/checkout", function(req, res) {
+    //Insert Sequelize Query Here
+      res.render("checkout");
+  });
+
 
   // Route for logging user out
   router.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
+  });
+
+  router.get("/newUser", function(req, res){
+    res.render("newUser");
   });
 
 //
