@@ -1,18 +1,30 @@
 <!-- Uses a transparent header that draws on top of the layout's background -->
 
-  <nav>
-    <div class="nav-wrapper backColor">
-      <a href="#" class="brand-logo">Logo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
-      </ul>
+<div class="demo-layout-transparent mdl-layout mdl-js-layout mdl-layout--fixed-header ">
+  <header class="mdl-layout__header mdl-layout__header--transparent">
+    <div class="mdl-layout__header-row ">
+      <!-- Title -->
+      <span class="mdl-layout-title">The Goods</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation -->
+      <nav class="mdl-navigation">
+
+        <a class="mdl-navigation__link" id="search" href=""><i class="material-icons">search</i></a>
+        <a class="mdl-navigation__link" id="homeButton" href=""><i class="material-icons">home</i></a>
+        <form action="/logout" method="GET">
+          <!-- <input > -->
+        <a class="mdl-navigation__link" id="logout" href="Logout" type="submit" value="Logout"><i class="material-icons">power_settings_new</i></a>
+        </form>
+
+      </nav>
     </div>
-  </nav>
 
+  </header>
 
-
+  <main class="mdl-layout__content">
+  </main>
+</div>
 
 <!--*************** The item cards section ***********************-->
 <div class="containerIndex">

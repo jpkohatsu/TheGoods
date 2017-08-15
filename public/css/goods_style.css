@@ -28,13 +28,11 @@ body {
 
 /***************** Navbar section ****************/
 
-.backColor {
-  background-color: transparent;
-}
+
 
 
 .mdl-layout__header-row {
-
+  padding-left: 25px;
 }
 
 i.material-icons {
