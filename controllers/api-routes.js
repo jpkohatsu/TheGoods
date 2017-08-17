@@ -57,14 +57,16 @@ router.get("/api/user_data", function(req, res) {
     }
 });
 
-
 //controller for item management
 router.post("/api/goods", function(req, res) {
-    db.Items.create({
+    db.Item.create({
         itemName: req.body.itemName,
         category: req.body.category,
+        owner: req.body.owner,
+        location: req.body.location,
         pricePerHour: req.body.pricePerHour,
-        itemPhoto: req.body.itemPhoto
+        itemPhoto: req.body.itemPhoto,
+        UserId: req.body.UserId
     }).then(function(dbItems) {
         res.json(dbItems);
     });
@@ -72,7 +74,7 @@ router.post("/api/goods", function(req, res) {
 
 // DELETE route for deleting Items
 router.delete("/api/goods/:id", function(req, res) {
-    db.Items.destroy({
+    db.Item.destroy({
         where: {
             id: req.params.id
         }
@@ -83,7 +85,7 @@ router.delete("/api/goods/:id", function(req, res) {
 
 // PUT route for updating items
 router.put("/api/goods", function(req, res) {
-    db.Items.update(
+    db.Item.update(
         req.body, {
             where: {
                 id: req.body.id
@@ -104,7 +106,7 @@ router.get("/api/goods", function(req, res) {
     if (req.query.item_Name) {
         query.itemName = req.query.item_Name;
     }
-    db.Items.findAll({
+    db.Item.findAll({
         where: query,
         include: [db.goods]
     }).then(function(dbItems) {
@@ -170,6 +172,21 @@ router.get("/api/goods", function(req, res) {
     }).then(function(dbItems) {
         res.json(dbItems);
     });
+});
+
+// Get item by availability
+router.get("/api/availability", function(req, res) {
+  // var query = {};
+  // if (req.query.availability) {
+  //   query.availability = req.query.availability;
+  // }
+  db.Item.findAll({
+    where: {
+      availability: true
+    }
+  }).then(function(dbItem) {
+    res.json(dbItem);
+  });
 });
 
 module.exports = router;
