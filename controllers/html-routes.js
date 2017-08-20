@@ -42,9 +42,6 @@ router.get("/checkout", function(req, res) {
     res.render("checkout");
 });
 
-router.get("/itemMmgt", function(req, res){
-    res.render("itemMmgt");
-});
 
 // Route for logging user out
 router.get("/logout", function(req, res) {
@@ -58,9 +55,6 @@ router.get("/newUser", function(req, res) {
 
 
 
-router.get("newItem", function(req, res) {
-    res.render("newItem");
-});
 
 // router.get("/itemMmgt", function(req, res) {
 //     //Insert Sequelize Query Here

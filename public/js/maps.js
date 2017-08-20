@@ -111,6 +111,7 @@ function geocodeAddress(resultsMap) {
         var marker = new google.maps.Marker({
           map: resultsMap,
           position: results[0].geometry.location
+          
         });
 
         google.maps.event.addListener(marker, 'click', function() {
