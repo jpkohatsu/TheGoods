@@ -65,13 +65,14 @@ router.post("/api/goods", function(req, res) {
     db.Item.create({
         itemName: req.body.itemName,
         category: req.body.category,
+        description: req.body.description,
         owner: req.user.username,
         location: req.user.address,
-        pricePerHour: req.body.pricePerHour,
+        price: req.body.pricePerHour,
         itemPhoto: req.body.itemPhoto,
         UserId: req.user.id
     }).then(function(dbItems) {
-        res.json(dbItems);
+        res.redirect("/newItem");
     });
 });
 
@@ -82,7 +83,7 @@ router.delete("/api/goods/:id", function(req, res) {
             id: req.params.id
         }
     }).then(function(dbItems) {
-        res.json(dbItems);
+        res.redirect("/itemMmgt");
     });
 });
 
@@ -99,7 +100,11 @@ router.put("/api/goods", function(req, res) {
 });
 
 router.get("/itemMmgt",isAuthenticated, function(req, res){
-    db.Item.findAll({}).then(function(data) {
+    db.Item.findAll({
+        where:{
+            UserId: req.user.id
+        }
+    }).then(function(data) {
     var hbsObject = {
       items: data
     };

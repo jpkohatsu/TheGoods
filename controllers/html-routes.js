@@ -59,11 +59,11 @@ router.get("newItem", function(req, res) {
     res.render("newItem");
 });
 
-router.get("/itemMmgt", function(req, res) {
-    //Insert Sequelize Query Here
+// router.get("/itemMmgt", function(req, res) {
+//     //Insert Sequelize Query Here
 
-    res.render("itemMmgt");
-});
+//     res.render("itemMmgt");
+// });
 //
 //
 //   app.get("/login", function(req, res) {

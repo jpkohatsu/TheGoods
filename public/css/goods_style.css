@@ -28,7 +28,7 @@ body {
 
 }
 
-.containerItemMngt {
+.containerItemMmgt {
   width: 0 auto;
   height: 0 auto;
   margin-left: 10%;
@@ -147,6 +147,9 @@ p {
   margin-top: 80px;
 
   width: 0 auto;
+
+  height: 0 auto;
+  border: 1px solid blue;
 }
 
 @media (min-width: 100px) and (max-width: 1440px) {
@@ -172,11 +175,6 @@ p {
 }
 /********* End of item cards section ************/
 
-.containerIndex {
-  width: 0 auto;
-  height: 0 auto;
-  border: 1px solid blue;
-}
 
 
 .descriptionBox {
