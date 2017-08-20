@@ -42,6 +42,9 @@ router.get("/checkout", function(req, res) {
     res.render("checkout");
 });
 
+router.get("/itemMmgt", function(req, res){
+    res.render("itemMmgt");
+});
 
 // Route for logging user out
 router.get("/logout", function(req, res) {
