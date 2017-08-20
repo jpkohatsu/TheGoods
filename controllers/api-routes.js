@@ -131,6 +131,7 @@ router.get("/api/goods", function(req,res){
     }).then(function(dbItems) {
         res.json(dbItems);
     });
+  });
 
 router.get("/itemMmgt",isAuthenticated, function(req, res){
     db.Item.findAll({
