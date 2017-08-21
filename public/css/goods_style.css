@@ -1,5 +1,5 @@
 body {
-  background-image: url(../assets/images/austinB&W.jpg);
+  background-image: url(../assets/images/austin.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -163,7 +163,7 @@ p {
 }
 
 
-@media (min-width: 100px) and (max-width: 1440px) {
+@media (min-width: 100px)  {
   #map {
   /*border: 1px solid yellow;*/
   width: 0 auto;
