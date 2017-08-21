@@ -192,17 +192,23 @@ router.get("/newItem", isAuthenticated, function(req, res) {
 
 //items search api routing
 
-router.get("/api/goods/:name?", function(req, res) {
+router.get("/api/search/:name?", function(req, res) {
     console.log("\n**************************************\n")
-    console.log(req.body);
+    console.log(req.query.searchInput);
     console.log("\n**************************************\n")
-    var query = {};
-    if (req.query.item_Name) {
-        query.itemName = req.query.item_Name;
-    }
+    // var query = {};
+    // if (req.query.item_Name) {
+    //     query.itemName = req.query.item_Name;
+    // }
     db.Item.findAll({
-        where: query,
-        include: [db.goods]
+        where: {
+            itemName:{
+                $regexp: req.query.searchInput
+            
+        }
+    }
+    
+        
     }).then(function(dbItems) {
         res.json(dbItems);
     });
