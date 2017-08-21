@@ -53,6 +53,10 @@ router.get("/newUser", function(req, res) {
     res.render("newUser");
 });
 
+router.get("/searchPage", function(req, res) {
+  res.render("searchPage");
+});
+
 
 
 

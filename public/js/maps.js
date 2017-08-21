@@ -30,6 +30,7 @@ var initMap = function() {
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: austin,
+    scrollwheel: false,
     zoom: 11,
     mapTypeId: "roadmap"
   });
@@ -65,7 +66,7 @@ var initMap = function() {
   }
 
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindowUser.setPosition(pos);
+    // infoWindowUser.setPosition(pos);
     infoWindowUser.setContent(browserHasGeolocation ?
       'Error: The Geolocation service failed.' :
       'Error: Your browser doesn\'t support geolocation.');
@@ -99,9 +100,11 @@ var destination;
 //   });
 // }
 
+var address = ["6001 Shepherd Mountain Cove, Austin, TX", "3303 N Lamar Blvd, Austin, TX 78705", "3704 Kerbey Ln, Austin, TX 78731", "4112 Medical Pkwy, Austin, TX 78756"];
+
 function geocodeAddress(resultsMap) {
   var geocoder = new google.maps.Geocoder();
-  var address = ["6001 Shepherd Mountain Cove, Austin, TX", "3303 N Lamar Blvd, Austin, TX 78705", "3704 Kerbey Ln, Austin, TX 78731", "4112 Medical Pkwy, Austin, TX 78756"];
+
 
   for (var i = 0; i < address.length; i++) {
     geocoder.geocode({
@@ -147,21 +150,6 @@ var id = 0;
 // var destination;
 var placeLoc;
 var isOpen;
-
-// function createMarker(place) {
-//   placeLoc = place.geometry.location;
-//   var marker = new google.maps.Marker({
-//     map: map,
-//     animation: google.maps.Animation.DROP,
-//     position: place.geometry.location
-//   });
-//
-//   google.maps.event.addListener(marker, 'click', function() {
-//     destination = place.geometry.location;
-//     infowindow.setContent(contentString);
-//     infowindow.open(map, this);
-//   });
-// }
 
 var travelMode = 'DRIVING';
 

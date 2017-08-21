@@ -180,11 +180,11 @@ router.get("/newItem", isAuthenticated, function(req, res) {
 
 });
 
-router.get("/", isAuthenticated, function(req, res) {
-    db.Item.findAll({}).then(function(data) {
-        console.log(data);
-    });
-});
+// router.get("/", isAuthenticated, function(req, res) {
+//     db.Item.findAll({}).then(function(data) {
+//         console.log(data);
+//     });
+// });
 
 
 //########################################
@@ -192,15 +192,23 @@ router.get("/", isAuthenticated, function(req, res) {
 
 //items search api routing
 
-router.get("/api/goods", function(req, res) {
-
-    var query = {};
-    if (req.query.item_Name) {
-        query.itemName = req.query.item_Name;
-    }
+router.get("/api/search/:name?", function(req, res) {
+    console.log("\n**************************************\n")
+    console.log(req.query.searchInput);
+    console.log("\n**************************************\n")
+    // var query = {};
+    // if (req.query.item_Name) {
+    //     query.itemName = req.query.item_Name;
+    // }
     db.Item.findAll({
-        where: query,
-        include: [db.goods]
+        where: {
+            itemName:{
+                $regexp: req.query.searchInput
+            
+        }
+    }
+    
+        
     }).then(function(dbItems) {
         res.json(dbItems);
     });
