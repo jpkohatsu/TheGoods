@@ -2,7 +2,7 @@
   var db = require ("../models");
 
   // Get item by name
-  app.get("/api/goods", function(req,res){
+app.get("/api/goods", function(req,res){
 
    var query = {};
     if (req.query.item_Name) {

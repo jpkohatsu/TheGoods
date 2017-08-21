@@ -8,8 +8,6 @@ body {
   color: black;
 }
 
-
-
 .container {
   border: 1px solid white;
   text-align: center;
@@ -25,6 +23,17 @@ body {
 }
 
 
+#textarea1 {
+
+}
+
+.containerItemMmgt {
+  width: 0 auto;
+  height: 0 auto;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 40px;
+}
 
 
 
@@ -98,7 +107,7 @@ p {
 		margin-top: 20px;
 }
 
-@media (min-width:400px) and (max-width: 1024px) {
+@media (min-width:400px) and (max-width: 1440px) {
 	i.material-icons {
 		/*padding:10px;*/
 		/*margin:5px;*/
@@ -137,6 +146,9 @@ p {
   margin-top: 80px;
 
   width: 0 auto;
+
+  height: 0 auto;
+  border: 1px solid blue;
 }
 
 @media (min-width: 100px) and (max-width: 1440px) {
@@ -162,11 +174,6 @@ p {
 }
 /********* End of item cards section ************/
 
-.containerIndex {
-  width: 0 auto;
-  height: 0 auto;
-  border: 1px solid blue;
-}
 
 
 .descriptionBox {

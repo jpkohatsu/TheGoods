@@ -1,39 +1,37 @@
-// Dependencies
-// npm install sequelize-mysql-timestamp
-// var sequelize = require("sequelize");
-
-// const TIMESTAMP = require("sequelize-mysql-timestamp")(sequelize);
-
-
+'use strict';
 
 // Creating Goods model
 module.exports = function(sequelize, DataTypes) {
   var Item = sequelize.define("Item", {
     itemName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     category: {
       type: DataTypes.STRING,
+      allowNull: true
+    },
+    description: {
+      type: DataTypes.TEXT,
       allowNull: false
     },
     owner: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     location: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
-    pricePerHour: {
+    price: {
       type: DataTypes.DECIMAL(6,2),
-      allowNull: false
+      allowNull: true
     },
-    outTimeStamp: {
+    from: {
       type: DataTypes.DATE,
       allowNull: true
     },
-    inTimeStamp: {
+    to: {
       type: DataTypes.DATE,
       allowNull: true
     },
@@ -42,18 +40,22 @@ module.exports = function(sequelize, DataTypes) {
     },
     itemPhoto: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     availability: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
+    },
+    rentee: {
+      type: DataTypes.INTEGER,
+      allowNull:true
     }
   });
 
   Item.associate = function(models) {
     Item.belongsTo(models.User, {
       foreignKey: {
-        allowNull: false
+        allowNull: true
       }
     });
   };
