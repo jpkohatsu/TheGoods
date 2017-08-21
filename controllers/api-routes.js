@@ -180,11 +180,11 @@ router.get("/newItem", isAuthenticated, function(req, res) {
 
 });
 
-router.get("/", isAuthenticated, function(req, res) {
-    db.Item.findAll({}).then(function(data) {
-        console.log(data);
-    });
-});
+// router.get("/", isAuthenticated, function(req, res) {
+//     db.Item.findAll({}).then(function(data) {
+//         console.log(data);
+//     });
+// });
 
 
 //########################################
@@ -192,8 +192,10 @@ router.get("/", isAuthenticated, function(req, res) {
 
 //items search api routing
 
-router.get("/api/goods", function(req, res) {
-
+router.get("/api/goods/:name?", function(req, res) {
+    console.log("\n**************************************\n")
+    console.log(req.body);
+    console.log("\n**************************************\n")
     var query = {};
     if (req.query.item_Name) {
         query.itemName = req.query.item_Name;
