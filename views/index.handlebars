@@ -24,11 +24,12 @@
 </div>
 <!--*************** The item cards section ***********************-->
 <div class="containerIndex">
-    <form action="#">
+    <form action="/api/goods/:name?" method="GET" id="searchBar">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input class="mdl-textfield__input" type="text" id="sample3">
             <label class="mdl-textfield__label" for="sample3">Search For An Item</label>
         </div>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" form="searchBar">Search</button>
     </form>
     <div class="row">
         <div class="col-md-4 hide">
@@ -85,6 +86,7 @@
         <div id="map"></div>
     </div>
 </div>
+<script src="/js/search.js"></script>
 <script src="/js/maps.js"></script>
 <!-- Google Maps API -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCso6Vq7SjQE7HWO1X1RhYVcGlEdvpYctE&callback=initMap"></script>
