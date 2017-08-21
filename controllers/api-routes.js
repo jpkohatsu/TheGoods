@@ -121,8 +121,8 @@ router.put("/api/goods", function(req, res) {
 
 
 // GET to populate owned items
-router.get("/api/goods", function(req,res){
-      var query = {};
+router.get("/api/goods", function(req, res) {
+    var query = {};
     if (req.query.owner) {
         query.owner = req.query.owner;
     }
@@ -134,7 +134,7 @@ router.get("/api/goods", function(req,res){
     });
 });
 
-router.get("/itemMmgt",isAuthenticated, function(req, res){
+router.get("/itemMmgt", isAuthenticated, function(req, res) {
     console.log("\n");
     console.log(req.user.id);
     console.log("\n");
@@ -147,22 +147,22 @@ router.get("/itemMmgt",isAuthenticated, function(req, res){
         var hbsObject = {
             items: data
         };
-         res.render("itemMmgt", hbsObject);
+        res.render("itemMmgt", hbsObject);
     });
 });
 
 
-router.get("/rentedItems",isAuthenticated, function(req, res){
+router.get("/rentedItems", isAuthenticated, function(req, res) {
     db.Item.findAll({
-        where:{
+        where: {
             rentee: req.user.id
         }
     }).then(function(data) {
-    var hbsObject = {
-      rentedItems: data
-    };
-    res.render("rentedItems", hbsObject);
-  });
+        var hbsObject = {
+            rentedItems: data
+        };
+        res.render("rentedItems", hbsObject);
+    });
 });
 
 router.get("/newItem", isAuthenticated, function(req, res) {
@@ -172,11 +172,11 @@ router.get("/newItem", isAuthenticated, function(req, res) {
         }
     }).then(function(data) {
 
-    var hbsObject = {
-      user: data
-    };
-    res.render("createItem", hbsObject);
-  });
+        var hbsObject = {
+            user: data
+        };
+        res.render("createItem", hbsObject);
+    });
 
 });
 
@@ -188,11 +188,38 @@ router.get("/newItem", isAuthenticated, function(req, res) {
 
 
 //########################################
+//return item route
+
+router.put("/api/return/:id", function(req, res) {
+    db.Item.update({
+        availability: true,
+        rentee: null
+
+    }, {where: {id: req.params.id}}).then(function() {
+        res.redirect("/rentedItems");
+    });
+});
+
+//rent item route
+router.put("/api/rent/:id", function(req, res) {
+    db.Item.update({
+
+
+        availability: false,
+        rentee: req.user.id
+
+    }, {where: {id: req.params.id}}).then(function() {
+        res.redirect("/");
+    });
+});
+
+
+
 
 
 //items search api routing
 
-router.get("/api/search/:name?", function(req, res) {
+router.get("/search", isAuthenticated, function(req, res) {
     console.log("\n**************************************\n")
     console.log(req.query.searchInput);
     console.log("\n**************************************\n")
@@ -202,15 +229,22 @@ router.get("/api/search/:name?", function(req, res) {
     // }
     db.Item.findAll({
         where: {
-            itemName:{
+            itemName: {
                 $regexp: req.query.searchInput
-            
+            },
+            availability: true,
+            UserId: {
+                $notRegexp: req.user.id
+            }
+
         }
-    }
-    
-        
-    }).then(function(dbItems) {
-        res.json(dbItems);
+
+
+    }).then(function(data) {
+        var hbsObject = {
+            cards: data
+        };
+        res.render("index", hbsObject);
     });
 });
 
