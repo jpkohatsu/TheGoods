@@ -1,4 +1,4 @@
-<!-- Uses a transparent header that draws on top of the layout's background -->
+<!-- Uses a transparent header that draws on top of the layout's background  -->
 <div class="demo-layout-transparent mdl-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header mdl-layout__header--transparent">
         <div class="mdl-layout__header-row ">
@@ -55,7 +55,9 @@
                     </p>
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
-                    <form id="form1" action="/api/rent/{{this.id}}?_method=PUT" method="POST"></form>
+                    <!-- <form id="form1" action="/api/rent/{{this.id}}?_method=PUT" method="POST"></form>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" form="form1">Rent</button> -->
+                    <form id="form1" action="/{{this.id}}" method="GET"></form>
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" form="form1">Rent</button>
                 </div>
             </div>
@@ -66,9 +68,10 @@
         </div>
     </div>
 </div>
+<!-- Payment Modal -->
 <!--************************* End of cards section ****************-->
 <!-- The Google Map API Section -->
 <script src="/js/maps.js"></script>
 <!-- Google Maps API -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCso6Vq7SjQE7HWO1X1RhYVcGlEdvpYctE&callback=initMap"></script>
-<!-- End of Google Map seciton -->
+<!-- End of Google Map seciton

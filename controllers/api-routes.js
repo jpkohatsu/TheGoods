@@ -248,79 +248,33 @@ router.get("/search", isAuthenticated, function(req, res) {
     });
 });
 
-// Get item by location
-router.get("/api/goods", function(req, res) {
+//Checkout page route
 
-    var query = {};
-    if (req.query.itemLoc) {
-        query.location = req.query.itemLoc;
-    }
-    db.Items.findAll({
-        where: query,
-        include: [db.goods]
-    }).then(function(dbItems) {
-        res.json(dbItems);
-    });
-});
-
-// Get item by price
-router.get("/api/goods", function(req, res) {
-
-    var query = {};
-    if (req.query.item_price) {
-        query.pricePerHour = req.query.item_price;
-    }
-    db.Items.findAll({
-        where: query,
-        include: [db.goods]
-    }).then(function(dbItems) {
-        res.json(dbItems);
-    });
-});
-
-// Get item by category
-router.get("/api/goods", function(req, res) {
-
-    var query = {};
-    if (req.query.goryCat) {
-        query.category = req.query.goryCat;
-    }
-    db.Items.findAll({
-        where: query,
-        include: [db.goods]
-    }).then(function(dbItems) {
-        res.json(dbItems);
-    });
-});
-
-// Get item by user
-router.get("/api/goods", function(req, res) {
-
-    var query = {};
-    if (req.query.Owner) {
-        query.owner = req.query.Owner;
-    }
-    db.Items.findAll({
-        where: query,
-        include: [db.user]
-    }).then(function(dbItems) {
-        res.json(dbItems);
-    });
-});
-
-// Get item by availability
-router.get("/api/availability", function(req, res) {
+router.get("/:id?", isAuthenticated, function(req, res) {
+ 
     // var query = {};
-    // if (req.query.availability) {
-    //   query.availability = req.query.availability;
+    // if (req.query.item_Name) {
+    //     query.itemName = req.query.item_Name;
     // }
-    db.Item.findAll({
+
+      console.log("\n**************************************\n")
+    console.log(req.params.id);
+    console.log("\n**************************************\n")
+
+    db.Item.findOne({
         where: {
-            availability: true
+            id: req.params.id
         }
-    }).then(function(dbItem) {
-        res.json(dbItem);
+
+
+    }).then(function(data) {
+        var hbsObject = {
+            checkoutCard: data
+        };
+
+        res.render("checkout", hbsObject);
     });
 });
+
 
 module.exports = router;
