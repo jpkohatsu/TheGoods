@@ -165,12 +165,12 @@
             // }
            
 
-            console.log("Addresses: " + address);
+            // console.log("Addresses: " + address);
 
             function geocodeAddress(resultsMap) {
                 var geocoder = new google.maps.Geocoder();
 
-
+                
                 for (var i = 0; i < address.length; i++) {
                     geocoder.geocode({
                         'address': address[i]
@@ -182,8 +182,12 @@
 
                             });
 
+
                             google.maps.event.addListener(marker, 'click', function() {
-                                var contentString = '<h1>Hello World</h1>';
+                              var j=0;
+                                var contentString = address[j];
+                                console.log("address: "+ address[j]);
+                                j++;
                                 // var contentString = '<div id="iw-container">' +
                                 //                   '<div class="iw-title">' + place.name + '</div>' +
                                 //                     '<div class="iw-content">' +
@@ -203,6 +207,7 @@
                         }
 
                     });
+                    
                 }
             }
 
