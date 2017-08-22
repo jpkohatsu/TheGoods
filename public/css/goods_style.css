@@ -6,6 +6,8 @@ body {
   color: black;
 }
 
+
+
 /********** Login Screen *********/
 .container {
   border: 1px solid white;
@@ -220,9 +222,18 @@ p {
   background-color: white;
   opacity: 0.9;
   border-radius: 30px;
-  padding: 5%;
+  padding: 7%;
 }
 
+th {
+  padding-left: 3%;
+  text-align: center;
+}
+
+td {
+  padding-left: 3%;
+  text-align: center;
+}
 
 /******** mapCardsBox form *****/
 
