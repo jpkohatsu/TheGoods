@@ -263,3 +263,8 @@ td {
 #modal1{
   z-index: 1000;
 }
+
+.mdl-card__actions.mdl-card--border {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    border-top: rgba(0,0,0,0);
+}
