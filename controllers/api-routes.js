@@ -220,9 +220,9 @@ router.put("/api/rent/:id", function(req, res) {
 //items search api routing
 
 router.get("/search", isAuthenticated, function(req, res) {
-    console.log("\n**************************************\n")
+    console.log("\n**************************************\n");
     console.log(req.query.searchInput);
-    console.log("\n**************************************\n")
+    console.log("\n**************************************\n");
     // var query = {};
     // if (req.query.item_Name) {
     //     query.itemName = req.query.item_Name;
@@ -251,15 +251,15 @@ router.get("/search", isAuthenticated, function(req, res) {
 //Checkout page route
 
 router.get("/:id?", isAuthenticated, function(req, res) {
- 
+
     // var query = {};
     // if (req.query.item_Name) {
     //     query.itemName = req.query.item_Name;
     // }
 
-      console.log("\n**************************************\n")
+    console.log("\n**************************************\n");
     console.log(req.params.id);
-    console.log("\n**************************************\n")
+    console.log("\n**************************************\n");
 
     db.Item.findOne({
         where: {
