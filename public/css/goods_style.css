@@ -246,3 +246,9 @@ p {
 .mdl-mini-footer {
   padding: 16px 16px;
 }
+
+/*Payment Modal*/
+
+#modal1{
+  z-index: 1000;
+}

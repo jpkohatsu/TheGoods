@@ -1,29 +1,32 @@
-<div class="demo-layout-transparent mdl-layout mdl-js-layout">
-  <header class="mdl-layout__header mdl-layout__header--transparent">
-    <div class="mdl-layout__header-row fixed">
-      <!-- Title -->
-      <span class="mdl-layout-title">The Goods</span>
-      <!-- Add spacer, to align navigation to the right -->
-      <div class="mdl-layout-spacer"></div>
-      <!-- Navigation -->
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" id="link1" href="">Link</a>
-        <a class="mdl-navigation__link" id="link2" href="">Link</a>
-        <a class="mdl-navigation__link" id="homeButton" href="">Home</a>
-        <a class="mdl-navigation__link" id="logOutButton" href="/login">Log Out</a>
-      </nav>
-    </div>
+<!-- Uses a transparent header that draws on top of the layout's background -->
+<div class="demo-layout-transparent mdl-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header mdl-layout__header--transparent">
+        <div class="mdl-layout__header-row ">
+            <!-- Title -->
+            <span class="mdl-layout-title">THE GOOD$</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation -->
+            <!-- <nav class="mdl-navigation"> -->
+            <a class="mdl-navigation__link" id="search" href="/"><i class="material-icons">search</i></a>
+            <a class="mdl-navigation__link" id="homeButton" href="/itemMmgt"><i class="material-icons">home</i></a>
+            <a class="mdl-navigation__link" id="createItem" href="/newItem"><i class="material-icons">create</i></a>
+            <a class="mdl-navigation__link" id="rentedItem" href="/rentedItems"><i class="material-icons">description</i></a>
+            <form action="/logout" method="GET">
+                <!-- <input > -->
+                <a class="mdl-navigation__link" id="logout" href="Logout" type="submit" value="Logout"><i class="material-icons">power_settings_new</i></a>
+            </form>
+            <!-- </nav> -->
+        </div>
+    </header>
+    <!-- <main class="mdl-layout__content">
+  </main> -->
+</div>
+<div class="containerIndex ">
+<h4 class="mdl-dialog__title">Checkout</h4>
 
-  </header>
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Title</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-    </nav>
-  </div>
-  <main class="mdl-layout__content">
-  </main>
+<form action="/api/rent/{{checkoutCard.id}}?_method=PUT" method="POST" class="stripe mdl-button close">
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_E6j075Fjr1QFXowQHRdxkM4o" data-amount="" data-name="{{checkoutCard.itemName}}" data-description="Will cost ${{checkoutCard.price}} for the day" data-image="{{checkoutCard.itemPhoto}}" data-locale="auto">
+    </script>
+</form>
 </div>

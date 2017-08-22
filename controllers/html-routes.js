@@ -26,20 +26,10 @@ router.get("/login", function(req, res) {
     res.render("login");
 });
 
-router.get("/checkout", function(req, res) {
-    //Insert Sequelize Query Here
-
-    res.render("checkout");
-});
 
 router.get("/itemResults", function(req, res) {
     //Insert Sequelize Query Here
     res.render("itemResults");
-});
-
-router.get("/checkout", function(req, res) {
-    //Insert Sequelize Query Here
-    res.render("checkout");
 });
 
 
