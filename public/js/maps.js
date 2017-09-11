@@ -1,73 +1,35 @@
-<!-- Uses a transparent header that draws on top of the layout's background  -->
-<div class="demo-layout-transparent mdl-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header mdl-layout__header--transparent">
-        <div class="mdl-layout__header-row ">
-            <!-- Title -->
-            <span class="mdl-layout-title">THE GOOD$</span>
-            <!-- Add spacer, to align navigation to the right -->
-            <div class="mdl-layout-spacer"></div>
-            <!-- Navigation -->
-            <!-- <nav class="mdl-navigation"> -->
-            <a class="mdl-navigation__link" id="search" href="/"><i class="material-icons">search</i></a>
-            <a class="mdl-navigation__link" id="homeButton" href="/itemMmgt"><i class="material-icons">home</i></a>
-            <a class="mdl-navigation__link" id="createItem" href="/newItem"><i class="material-icons">create</i></a>
-            <a class="mdl-navigation__link" id="rentedItem" href="/rentedItems"><i class="material-icons">description</i></a>
-            <form action="/logout" method="GET">
-                <!-- <input > -->
-                <a class="mdl-navigation__link" id="logout" href="Logout" type="submit" value="Logout"><i class="material-icons">power_settings_new</i></a>
-            </form>
-            <!-- </nav> -->
-        </div>
-    </header>
-    <!-- <main class="mdl-layout__content">
-  </main> -->
-</div>
-<!--*************** The item cards section ***********************-->
+$(document).ready(function() {
+            //
 
-<div class="mapCardsBox">
-    <div class="mdl-grid searchField">
-        <div class="containerIndex mdl-cell mdl-cell--4-col">
-            <form action="/search" method="GET" id="searchBar" data=>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="sample3" name="searchInput">
-                    <label class="mdl-textfield__label" for="sample3">Search For An Item</label>
-                </div>
-            </form>
-        </div>
-        <div class="mdl-layout-spacer"></div>
-    </div>
-    <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--4-col">
-            {{#each cards}}
-            <div style="opacity: 1">
-              <div class="demo-card-square mdl-card mdl-shadow--2dp">
+            // console.log(req.user);
+            // document.querySelector('#searchBar').addEventListener('keypress', function(e) {
+            //     var key = e.which || e.keyCode;
+            //     if (key === 13) { // 13 is enter
+            //         // code for enter
+            //         $.ajax({
+            //             url: "/mapMarkers",
+            //             data: {
+            //                 where: {
+            //                     itemName: {
+            //                         $regexp: $("#itemSearch").val()
+            //                     },
+            //                     availability: true,
+            //                     UserId: {
+            //                         $notRegexp: req.user.id
+            //                     }
 
-                <div class="mdl-card__title mdl-card--expand" style="background-image: url('{{this.itemPhoto}}'); background-size: cover;">
-                    <h2 class="mdl-card__title-text">{{this.itemName}}</h2>
-                </div>
-              </div>
-                <div class="mdl-card__supporting-text">
-                    <p>
-                        {{this.description}}
-                        <br> {{this.location}}
-                        <br> Price: ${{this.price}}
-                    </p>
-                </div>
-                <div class="mdl-card__actions mdl-card--border">
+            //                 }
 
-                    <form id="form1" action="/{{this.id}}" method="GET"></form>
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" form="form1">Rent</button>
-                </div>
-            </div>
-            {{/each}}
-        </div>
-        <div class="mdl-cell mdl-cell--8-col">
-            <div id="map"></div>
-        </div>
-    </div>
-    <!-- <script src="/js/maps.js"></script> -->
-    <script>
-    console.log("Maps is connected");
+
+            //             },
+            //             method: "GET",
+            //         }).done(function() {
+            //             $(this).addClass("done");
+            //         });
+            //     }
+            // });
+            //============================================================= GOOGLE MAPS API ===============================================================
+            console.log("Maps is connected");
 
             var map;
             var pos;
@@ -76,16 +38,6 @@
             var interval;
             var GeoMarker;
             var austin;
-
-             var address = [];
-             var i = 0;
-            {{#each cards}}
-            
-              address.push("{{this.location}}");
-              address[i] = address[i].replace(/\,/g,"");
-              i++;
-
-            {{/each}}
 
             var initMap = function() {
 
@@ -143,7 +95,9 @@
 
             var destination;
 
-           
+            $.ajax({
+
+            })
 
             // function geocodeAddress(geocoder, resultsMap) {
             //   var address = "6001 Shepherd Mountain Cove, Austin, TX";
@@ -166,14 +120,13 @@
             //     }
             //   });
             // }
-           
 
-            // console.log("Addresses: " + address);
+            var address = ["6001 Shepherd Mountain Cove, Austin, TX", "3303 N Lamar Blvd, Austin, TX 78705", "3704 Kerbey Ln, Austin, TX 78731", "4112 Medical Pkwy, Austin, TX 78756"];
 
             function geocodeAddress(resultsMap) {
                 var geocoder = new google.maps.Geocoder();
 
-                
+
                 for (var i = 0; i < address.length; i++) {
                     geocoder.geocode({
                         'address': address[i]
@@ -185,12 +138,8 @@
 
                             });
 
-
                             google.maps.event.addListener(marker, 'click', function() {
-                              var j=0;
-                                var contentString = address[j];
-                                console.log("address: "+ address[j]);
-                                j++;
+                                var contentString = '<h1>Hello World</h1>';
                                 // var contentString = '<div id="iw-container">' +
                                 //                   '<div class="iw-title">' + place.name + '</div>' +
                                 //                     '<div class="iw-content">' +
@@ -210,7 +159,6 @@
                         }
 
                     });
-                    
                 }
             }
 
@@ -267,7 +215,4 @@
                     }
                 });
             }
-    </script>
-<!-- Google Maps API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCso6Vq7SjQE7HWO1X1RhYVcGlEdvpYctE&callback=initMap"></script>
-</div>
+            // });

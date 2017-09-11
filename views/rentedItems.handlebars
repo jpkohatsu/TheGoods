@@ -22,12 +22,29 @@
     <!-- <main class="mdl-layout__content">
   </main> -->
 </div>
-
-<div class="container">
-<h4 class="mdl-dialog__title">Checkout</h4>
-
-<form action="/api/rent/{{checkoutCard.id}}?_method=PUT" method="POST" class="stripe mdl-button close">
-    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_E6j075Fjr1QFXowQHRdxkM4o" data-amount="" data-name="{{checkoutCard.itemName}}" data-description="Will cost ${{checkoutCard.price}} for the day" data-image="{{checkoutCard.itemPhoto}}" data-locale="auto">
-    </script>
-</form>
+<div class="containerIndex ">
+    <table class="rentedItemsForm">
+        <tr>
+            <th>Item Name</th>
+            <th>Category</th>
+            <th>Owner</th>
+            <th>Location</th>
+            <th>Price Per Hour</th>
+            <th>Item Photo</th>
+        </tr>
+        {{#each rentedItems}}
+        <tr class="allItemsTable">
+            <td>{{this.itemName}}</td>
+            <td>{{this.category}}</td>
+            <td>{{this.owner}}
+                <td>{{this.location}}</td>
+                <td>{{this.price}}</td>
+                <td><img src={{this.itemPhoto}} height="100px" width="100px"></td>
+                <td>
+                    <form id="form1" action="/api/return/{{this.id}}?_method=PUT" method="POST"></form>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" form="form1">Return</button>
+                </td>
+        </tr>
+        {{/each}}
+    </table>
 </div>

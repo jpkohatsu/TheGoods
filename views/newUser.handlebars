@@ -1,15 +1,47 @@
-<form action="/api/signup" method="POST">
-  Name:<br>
-  <input type="text" name="name" value="Mickey Mouse"><br>
-  Email:<br>
-  <input type="text" name="email" value="johndoe@gmail.com"><br>
-  Address:<br>
-  <input type="text" name="address" value:"testAddress"><br>
-  Username:<br>
-  <input type="text" name="username" value:"testUser"><br>
-  Password:<br>
-  <input type="text" name="password" value:"test"><br>
+<div class="container">
+<h3>Create Account</h3>
+  <form action="/api/signup" method="POST">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" name="name" id="#">
+          <label class="mdl-textfield__label" for="sample3">Name</label>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="email" name="email" id="#">
+          <label class="mdl-textfield__label" for="sample3">Email</label>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" name="address" id="#">
+          <label class="mdl-textfield__label" for="sample3">Address</label>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" name="username" id="#">
+          <label class="mdl-textfield__label" for="sample3">Username</label>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" name="password" id="#">
+          <label class="mdl-textfield__label" for="sample3">Password</label>
+      </div>
+      <br><input type="submit" value="Submit">
+  </form>
+
+</div>
 
 
-  <br><input type="submit" value="Submit">
-</form>
+  <!-- <form action="/api/signup" method="POST">
+    Name:<br>
+    <input type="text" name="name" value=""><br>
+    Email:<br>
+    <input type="text" name="email" value=""><br>
+    Address:<br>
+    <input type="text" name="address" value:""><br>
+    Username:<br>
+    <input type="text" name="username" value:""><br>
+    Password:<br>
+    <input type="text" name="password" value:""><br>
+
+    <br><input type="submit" value="Submit">
+  </form> -->

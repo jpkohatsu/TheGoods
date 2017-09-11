@@ -10,41 +10,51 @@ console.log("connected to html-routes");
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 
+router.get("/", isAuthenticated, function(req, res) {
 
-  router.get("/", function(req, res) {
+    //Insert Sequelize Query Here
+    if (req.user) {
+        res.render("index");
+    } else {
+        res.render("login");
+    }
+});
+
+router.get("/login", function(req, res) {
     //Insert Sequelize Query Here
 
-      res.render("index");
-  });
+    res.render("login");
+});
 
-  router.get("/login", function(req, res) {
+
+router.get("/itemResults", function(req, res) {
     //Insert Sequelize Query Here
-
-      res.render("login");
-  });
-
-  router.get("/checkout", function(req, res) {
-    //Insert Sequelize Query Here
-
-      res.render("checkout");
-  });
-
-  router.get("/checkout", function(req, res) {
-    //Insert Sequelize Query Here
-      res.render("checkout");
-  });
+    res.render("itemResults");
+});
 
 
-  // Route for logging user out
-  router.get("/logout", function(req, res) {
+// Route for logging user out
+router.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
-  });
+});
 
-  router.get("/newUser", function(req, res){
+router.get("/newUser", function(req, res) {
     res.render("newUser");
-  });
+});
 
+router.get("/searchPage", function(req, res) {
+  res.render("searchPage");
+});
+
+
+
+
+// router.get("/itemMmgt", function(req, res) {
+//     //Insert Sequelize Query Here
+
+//     res.render("itemMmgt");
+// });
 //
 //
 //   app.get("/login", function(req, res) {

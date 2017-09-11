@@ -6,12 +6,13 @@ var express = require("express");
 // var router = express.Router();
 var router = require("./html-routes");
 var path = require("path");
+var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 
 // Using the passport.authenticate middleware with our local strategy.
 // If the user has valid login credentials, send them to the members page.
 // Otherwise the user will be sent an error
-router.post("/api/login", function(req, res) {
+router.post("/api/login", passport.authenticate("local"), function(req, res) {
     // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
     // So we're sending the user back the route to the members page because the redirect will happen on the front end
     // They won't get this or even be able to access this page if they aren't authed
@@ -28,17 +29,18 @@ router.post("/api/signup", function(req, res) {
         email: req.body.email,
         address: req.body.address,
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        UserId: req.body.id
     }).then(function() {
+        console.log("redirecting");
         res.redirect(307, "/api/login");
     }).catch(function(err) {
+        console.log("Houston we have a problem...");
         console.log(err);
         res.json(err);
         // res.status(422).json(err.errors[0].message);
     });
 });
-
-
 
 // Route for getting some data about our user to be used client side
 router.get("/api/user_data", function(req, res) {
@@ -56,32 +58,53 @@ router.get("/api/user_data", function(req, res) {
 });
 
 
-//controller for item management
+//PUT ROUTE FOR UPDATING USER INFO
+router.put("/api/user_data", function(req, res) {
+    db.User.update(
+        req.body, {
+            where: {
+                id: req.body.id
+            }
+        }).then(function(dbUsers) {
+        res.json(dbUsers);
+    });
+});
+
+
+//CONTROLLER FOR ITEM MANAGEMENT
+//POST to create new item
 router.post("/api/goods", function(req, res) {
-    db.Items.create({
+
+    db.Item.create({
         itemName: req.body.itemName,
         category: req.body.category,
-        pricePerHour: req.body.pricePerHour,
-        itemPhoto: req.body.itemPhoto
+        description: req.body.description,
+        owner: req.user.username,
+        location: req.user.address,
+        price: req.body.pricePerHour,
+        itemPhoto: req.body.itemPhoto,
+        UserId: req.user.id
     }).then(function(dbItems) {
-        res.json(dbItems);
+
+        res.redirect("/newItem");
+
     });
 });
 
 // DELETE route for deleting Items
 router.delete("/api/goods/:id", function(req, res) {
-    db.Items.destroy({
+    db.goods.destroy({
         where: {
             id: req.params.id
         }
     }).then(function(dbItems) {
-        res.json(dbItems);
+        res.redirect("/itemMmgt");
     });
 });
 
 // PUT route for updating items
 router.put("/api/goods", function(req, res) {
-    db.Items.update(
+    db.goods.update(
         req.body, {
             where: {
                 id: req.body.id
@@ -91,82 +114,167 @@ router.put("/api/goods", function(req, res) {
     });
 });
 
+
+
+// GET to populate rented items
+//??WHERE ARE WE STORING WHO IS RENTING AN ITEM
+
+
+// GET to populate owned items
+router.get("/api/goods", function(req, res) {
+    var query = {};
+    if (req.query.owner) {
+        query.owner = req.query.owner;
+    }
+    db.Items.findAll({
+        where: query,
+        include: [db.goods]
+    }).then(function(dbItems) {
+        res.json(dbItems);
+    });
+});
+
+router.get("/itemMmgt", isAuthenticated, function(req, res) {
+    console.log("\n");
+    console.log(req.user.id);
+    console.log("\n");
+
+    db.Item.findAll({
+        where: {
+            UserId: req.user.id
+        }
+    }).then(function(data) {
+        var hbsObject = {
+            items: data
+        };
+        res.render("itemMmgt", hbsObject);
+    });
+});
+
+
+router.get("/rentedItems", isAuthenticated, function(req, res) {
+    db.Item.findAll({
+        where: {
+            rentee: req.user.id
+        }
+    }).then(function(data) {
+        var hbsObject = {
+            rentedItems: data
+        };
+        res.render("rentedItems", hbsObject);
+    });
+});
+
+router.get("/newItem", isAuthenticated, function(req, res) {
+    db.Item.findOne({
+        where: {
+            id: req.body.id
+        }
+    }).then(function(data) {
+
+        var hbsObject = {
+            user: data
+        };
+        res.render("createItem", hbsObject);
+    });
+
+});
+
+// router.get("/", isAuthenticated, function(req, res) {
+//     db.Item.findAll({}).then(function(data) {
+//         console.log(data);
+//     });
+// });
+
+
 //########################################
+//return item route
+
+router.put("/api/return/:id", function(req, res) {
+    db.Item.update({
+        availability: true,
+        rentee: null
+
+    }, {where: {id: req.params.id}}).then(function() {
+        res.redirect("/rentedItems");
+    });
+});
+
+//rent item route
+router.put("/api/rent/:id", function(req, res) {
+    db.Item.update({
+
+
+        availability: false,
+        rentee: req.user.id
+
+    }, {where: {id: req.params.id}}).then(function() {
+        res.redirect("/");
+    });
+});
+
+
+
 
 
 //items search api routing
 
-router.get("/api/goods", function(req, res) {
+router.get("/search", isAuthenticated, function(req, res) {
+    console.log("\n**************************************\n");
+    console.log(req.query.searchInput);
+    console.log("\n**************************************\n");
+    // var query = {};
+    // if (req.query.item_Name) {
+    //     query.itemName = req.query.item_Name;
+    // }
+    db.Item.findAll({
+        where: {
+            itemName: {
+                $regexp: req.query.searchInput
+            },
+            availability: true,
+            UserId: {
+                $notRegexp: req.user.id
+            }
 
-    var query = {};
-    if (req.query.item_Name) {
-        query.itemName = req.query.item_Name;
-    }
-    db.Items.findAll({
-        where: query,
-        include: [db.goods]
-    }).then(function(dbItems) {
-        res.json(dbItems);
+        }
+
+
+    }).then(function(data) {
+        var hbsObject = {
+            cards: data
+        };
+        res.render("index", hbsObject);
     });
 });
 
-// Get item by location
-router.get("/api/goods", function(req, res) {
+//Checkout page route
 
-    var query = {};
-    if (req.query.itemLoc) {
-        query.location = req.query.itemLoc;
-    }
-    db.Items.findAll({
-        where: query,
-        include: [db.goods]
-    }).then(function(dbItems) {
-        res.json(dbItems);
+router.get("/:id?", isAuthenticated, function(req, res) {
+
+    // var query = {};
+    // if (req.query.item_Name) {
+    //     query.itemName = req.query.item_Name;
+    // }
+
+    console.log("\n**************************************\n");
+    console.log(req.params.id);
+    console.log("\n**************************************\n");
+
+    db.Item.findOne({
+        where: {
+            id: req.params.id
+        }
+
+
+    }).then(function(data) {
+        var hbsObject = {
+            checkoutCard: data
+        };
+
+        res.render("checkout", hbsObject);
     });
 });
 
-// Get item by price
-router.get("/api/goods", function(req, res) {
 
-    var query = {};
-    if (req.query.item_price) {
-        query.pricePerHour = req.query.item_price;
-    }
-    db.Items.findAll({
-        where: query,
-        include: [db.goods]
-    }).then(function(dbItems) {
-        res.json(dbItems);
-    });
-});
-
-// Get item by category
-router.get("/api/goods", function(req, res) {
-
-    var query = {};
-    if (req.query.goryCat) {
-        query.category = req.query.goryCat;
-    }
-    db.Items.findAll({
-        where: query,
-        include: [db.goods]
-    }).then(function(dbItems) {
-        res.json(dbItems);
-    });
-});
-
-// Get item by user
-router.get("/api/goods", function(req, res) {
-
-    var query = {};
-    if (req.query.Owner) {
-        query.owner = req.query.Owner;
-    }
-    db.Items.findAll({
-        where: query,
-        include: [db.user]
-    }).then(function(dbItems) {
-        res.json(dbItems);
-    });
-});
 module.exports = router;

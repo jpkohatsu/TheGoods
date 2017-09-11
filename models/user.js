@@ -1,3 +1,4 @@
+'use strict';
 // ***************************************************************************************************
 // Requiring bcrypt for password hashing. Using the bcrypt-nodejs version as the regular bcrypt module
 // sometimes causes errors on Windows machines
@@ -49,7 +50,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    //paments stuff needed here
+    // paments stuff needed here
     rating:{
       type: DataTypes.STRING,
       // allowNull: false,
